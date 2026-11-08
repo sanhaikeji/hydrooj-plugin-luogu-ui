@@ -1,0 +1,9 @@
+{
+  "name": "hydrooj-plugin-luogu-ui",
+  "version": "1.0.0",
+  "description": "HydroOJ 洛谷式布局插件：左侧图标栏（悬浮展开）+ 顶栏（含消息按钮）+ 头像点击右侧滑出抽屉。纯前端注入，生产环境零编译。",
+  "main": "index.ts",
+  "keywords": ["hydrooj", "hydro", "ui", "ui-default", "theme", "layout", "luogu"],
+  "author": "sanhai",
+  "license": "AGPL-3.0"
+}

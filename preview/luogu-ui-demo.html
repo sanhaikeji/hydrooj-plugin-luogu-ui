@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="theme--default" data-mantine-color-scheme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>题目列表 - HydroOJ 演示</title>
+<style>
+    /* 仅演示页用的 Hydro 风格底布，模拟主题默认观感（插件本体不依赖它） */
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: "Open Sans", "Segoe UI", "PingFang SC", "Microsoft Yahei", sans-serif;
+        background: #f5f6f8;
+        color: #2c3138;
+        font-size: 14px;
+    }
+    nav#menu.nav {
+        display: block;
+        background: #56758f;
+        color: #fff;
+    }
+    nav#menu .row { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+    nav#menu .nav__list { list-style: none; margin: 0; padding: 0; display: inline-block; }
+    nav#menu .nav__list-item { display: inline-block; vertical-align: middle; }
+    nav#menu .nav__logo { height: 22px; vertical-align: middle; }
+    nav#menu .nav__item {
+        display: inline-block; padding: 14px 14px; color: #fff;
+        text-decoration: none; font-size: 14px;
+    }
+    nav#menu .nav__item--round {
+        border: 1px solid rgba(255,255,255,.7); border-radius: 14px; padding: 5px 14px;
+        color: #fff; text-decoration: none;
+    }
+    nav#menu .nav--active { background: rgba(255,255,255,.15); }
+    nav.nav--shadow { display: block; height: 4px; background: rgba(0,0,0,.12); }
+    .header--mobile { display: none; }
+    .main { max-width: 1180px; margin: 16px auto; padding: 0 16px; }
+    .section {
+        background: #fff; border: 1px solid #e6e8eb; border-radius: 6px;
+        margin-bottom: 16px;
+    }
+    .section__header {
+        padding: 12px 18px; border-bottom: 1px solid #e6e8eb; font-size: 15px; font-weight: 600;
+    }
+    .section__body { padding: 6px 0; }
+    .problem-row {
+        display: flex; align-items: center; gap: 14px; padding: 10px 18px;
+        border-bottom: 1px solid #f0f1f3;
+    }
+    .problem-row:last-child { border-bottom: 0; }
+    .problem-row .pid { color: #6b7280; width: 88px; }
+    .problem-row .ptitle { color: #0b66d6; text-decoration: none; }
+    .problem-row .ptitle:hover { text-decoration: underline; }
+    .problem-row .tags { margin-left: auto; color: #9aa1ab; font-size: 12px; }
+    .footer-note {
+        max-width: 1180px; margin: 8px auto 24px; padding: 0 16px;
+        color: #9aa1ab; font-size: 12px;
+    }
+</style>
+<!-- 插件样式（生产环境由构建器自动注入 <head>，演示页直接引用同一份文件） -->
+<link rel="stylesheet" href="../frontend/luogu-ui.css">
+</head>
+<body>
+
+<!-- ===== 以下是按 ui-default templates/partials/nav.html 真实结构仿制的原生顶栏 ===== -->
+<nav class="nav slideout-menu" id="menu">
+  <div class="row"><div class="columns clearfix">
+    <ol class="nav__list nav__list--main clearfix">
+      <li class="nav__list-item">
+        <a href="/"><img class="nav__logo" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='28'%3E%3Crect width='120' height='28' rx='4' fill='%23ffffff'/%3E%3Ctext x='60' y='19' font-size='14' font-family='sans-serif' fill='%2356758f' text-anchor='middle'%3EHydroOJ%3C/text%3E%3C/svg%3E"></a>
+      </li>
+      <li class="nav__list-item"><a href="/" class="nav__item">首页</a></li>
+      <li class="nav__list-item"><a href="/p" class="nav__item nav--active">题库</a></li>
+      <li class="nav__list-item"><a href="/training" class="nav__item">训练</a></li>
+      <li class="nav__list-item"><a href="/contest" class="nav__item">比赛</a></li>
+      <li class="nav__list-item"><a href="/homework" class="nav__item">作业</a></li>
+      <li class="nav__list-item"><a href="/record" class="nav__item">评测队列</a></li>
+      <li class="nav__list-item"><a href="/ranking" class="nav__item">排名</a></li>
+      <li class="nav__list-item"><a href="/discuss" class="nav__item">讨论</a></li>
+    </ol>
+    <ol class="nav__list nav__list--secondary clearfix">
+      <li class="nav__list-item" data-dropdown-pos="bottom right" data-dropdown-custom-class="nav__dropdown" data-dropdown-target="#menu-nav-domain" data-dropdown-disabledconstrainToWindow data-dropdown-trigger-desktop-only>
+        <span class="nav__item"><span class="icon"><img class="small user-profile-avatar v-center" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Crect width='20' height='20' fill='%237b8794'/%3E%3C/svg%3E" width="20" height="20"></span> 信奥训练营 <span class="icon icon-expand_more nojs--hide"></span></span>
+        <ol class="dropdown-target menu" id="menu-nav-domain">
+          <li class="menu__item"><a href="#" class="menu__link">信奥训练营 (main)</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">小超班 (xclass)</a></li>
+          <li class="menu__seperator"></li>
+          <li class="menu__item"><a href="#" class="menu__link">管理域</a></li>
+        </ol>
+      </li>
+      <li class="nav__list-item" data-dropdown-pos="bottom right" data-dropdown-custom-class="nav__dropdown" data-dropdown-target="#menu-nav-user" data-dropdown-disabledconstrainToWindow data-dropdown-trigger-desktop-only>
+        <a href="/user/2" class="nav__item">山海 (sanhai) <span class="icon icon-expand_more nojs--hide"></span></a>
+        <ol class="dropdown-target menu" id="menu-nav-user">
+          <li class="menu__item"><a href="/user/2" class="menu__link">个人主页</a></li>
+          <li class="menu__item"><a href="/home/messages" class="menu__link"><span class="icon icon-email"></span> 我的消息 <span class="icon-right-number">3</span></a></li>
+          <li class="menu__seperator"></li>
+          <li class="menu__item"><a href="#" class="menu__link">@ 信奥训练营</a></li>
+          <li class="menu__seperator"></li>
+          <li class="menu__item"><a href="#" class="menu__link">账号设置</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">偏好设置</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">安全设置</a></li>
+          <li class="menu__seperator"></li>
+          <li class="menu__item"><a href="#" class="menu__link">我的域</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">我的文件</a></li>
+          <li class="menu__seperator"></li>
+          <li class="menu__item"><a href="#" class="menu__link">退出登录</a></li>
+        </ol>
+      </li>
+    </ol>
+  </div></div>
+</nav>
+<nav class="nav--shadow"></nav>
+
+<div class="slideout-panel" id="panel">
+  <div class="slideout-overlay"></div>
+  <div class="main">
+    <div class="section">
+      <div class="section__header">题目列表</div>
+      <div class="section__body">
+        <div class="problem-row"><span class="pid">P1001</span><a class="ptitle" href="#">A+B Problem</a><span class="tags">入门 · 模拟</span></div>
+        <div class="problem-row"><span class="pid">P1002</span><a class="ptitle" href="#">过河卒</a><span class="tags">普及- · 动态规划</span></div>
+        <div class="problem-row"><span class="pid">P1003</span><a class="ptitle" href="#">铺地毯</a><span class="tags">普及- · 模拟</span></div>
+        <div class="problem-row"><span class="pid">P1004</span><a class="ptitle" href="#">方格取数</a><span class="tags">普及+/提高 · DP</span></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section__header">最近评测</div>
+      <div class="section__body">
+        <div class="problem-row"><span class="pid">#88213</span><a class="ptitle" href="#">P1001 A+B Problem</a><span class="tags">Accepted · 12ms · 2.1MB</span></div>
+        <div class="problem-row"><span class="pid">#88212</span><a class="ptitle" href="#">P1002 过河卒</a><span class="tags">Wrong Answer on #7</span></div>
+      </div>
+    </div>
+    <div class="footer-note">演示页说明：导航标记按 ui-default templates/partials/nav.html 真实结构仿制，页面内容（题目列表等）为本地假数据。插件不修改任何页面内容——真实站点上题目列表等仍是 Hydro 原模板原样，插件只重排导航壳。左栏默认只显图标，鼠标悬浮展开文字；点选条目图标有动效。用户菜单里的"我的消息"已搬到顶栏（信封按钮，链接沿用 Hydro 原条目，抽屉里不再重复）。点右上角头像 → 用户菜单从右侧滑出（搬用 Hydro 原菜单节点，非悬浮）。</div>
+  </div>
+</div>
+
+<!-- 插件核心（生产环境由 luogu-ui.page.ts 的 AutoloadPage 调用，这里手动调用一次） -->
+<script src="../frontend/luogu-ui.js"></script>
+<script>
+    // 模拟 html5.html 内联的 UserContext（模板里是 JSON 字符串）
+    window.UserContext = JSON.stringify({
+        _id: 2,
+        uname: 'sanhai',
+        displayName: '山海',
+        avatarUrl: "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230084ff'/%3E%3Ccircle cx='32' cy='24' r='11' fill='%23ffffff'/%3E%3Cellipse cx='32' cy='55' rx='19' ry='15' fill='%23ffffff'/%3E%3C/svg%3E"
+    });
+    window.LGUI.mount();
+    // 演示辅助：file:// 下没有真实页面，拦截左栏与顶栏消息按钮的跳转，只播动效不跳走
+    document.addEventListener('click', function (ev) {
+        var t = ev.target;
+        var a = t && t.closest ? t.closest('#lgui-sidebar a, #lgui-topbar .lgui-msg') : null;
+        if (a) ev.preventDefault();
+    }, true);
+    // 演示辅助：URL 带 #open 时自动点开头像抽屉，方便截图验证
+    if (location.hash === '#open') {
+        var av = document.getElementById('lgui-avatar');
+        if (av) av.click();
+    }
+</script>
+</body>
+</html>
